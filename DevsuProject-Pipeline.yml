@@ -1,0 +1,27 @@
+trigger:
+- main  # Define the branch to trigger the pipeline (e.g., when changes are pushed to 'master')
+
+pool:
+  vmImage: 'ubuntu-latest'  # Specify the VM image for the build agent
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'  # Specify the Node.js version you want to use
+    checkLatest: true
+
+- script: |
+    # Navigate to your Node.js app directory
+    # cd path/to/your/nodejs/app
+
+    # Install Node.js dependencies
+    npm install
+
+    # Build your Node.js app (e.g., build, transpile, etc.)
+    npm run test
+
+  displayName: 'Build Node.js App'
+    
+# steps:
+# - script: echo K8s Pipeline
+#     displayName: 
