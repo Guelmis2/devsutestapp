@@ -20,6 +20,9 @@ steps:
     # Build your Node.js app (e.g., build, transpile, etc.)
     npm run test
 
+    # Build your Node.js app (e.g., build, transpile, etc.)
+    npm run start
+
   displayName: 'Build Node.js App'
     
 # steps:
