@@ -11,20 +11,21 @@ steps:
     checkLatest: true
 
 - script: |
-    # Navigate to your Node.js app directory
-    # cd path/to/your/nodejs/app
-
     # Install Node.js dependencies
     npm install
 
-    # Build your Node.js app (e.g., build, transpile, etc.)
-    npm run test
+    # Building Node.js app
+    npm run build
 
-    # Build your Node.js app (e.g., build, transpile, etc.)
-    npm run start
+    # Testing Node.js app
+    npm test
 
   displayName: 'Build Node.js App'
-    
+
+- task: PublishTestResults@2
+  inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TEST-*.xml'
 # steps:
 # - script: echo K8s Pipeline
 #     displayName: 
