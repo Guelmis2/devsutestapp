@@ -4,6 +4,12 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'  # Specify the VM image for the build agent
 
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -18,14 +24,14 @@ steps:
     npm test
   displayName: 'Test Node.js App'
 
-- script:
-    npm run coverage
-  displayName: 'Running Test Coverage'
+# - script:
+#     npm run coverage
+#   displayName: 'Running Test Coverage'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: Cobertura
+#     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
 
 # - task: PublishTestResults@2
 #   inputs:
@@ -60,10 +66,15 @@ steps:
 #   inputs:
 #     pollingTimeoutSec: '300'
 #   displayName: 'SonarCloud Step 2'
+  
 - task: Docker@2
+  displayName: Build an image and Pushing to DockerHub
   inputs:
-    command: 'build'
+    containerRegistry: 'GuelmisDockerHub'
+    repository: 'guelmisedwards/devsutest'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    tags: '$(tag)'
 # # steps:
 # # - script: echo K8s Pipeline
 # #     displayName: 
