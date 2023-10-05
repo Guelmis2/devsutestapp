@@ -18,29 +18,20 @@ steps:
     npm test
 
   displayName: 'Test Node.js App'
-  
-- script: |
-    sonar-scanner \
-      -Dsonar.login='9ad7c26381bc047271eb83a7634d8a3458a39bff' \
-      -Dsonar.projectKey='Test Devsu Project'
-  displayName: 'Run SonarCloud Analysis'
 
-# - task: SonarCloudPrepare@1
-#   inputs:
-#     SonarCloud: 'SonarCloud'
-#     organization: 'devopsgman007'
-#     scannerMode: 'CLI'
-#     projectKey: 'Test Devsu Project'
-#     projectName: 'Test Devsu Project'
-#   displayName: 'SonarCloud Step 1'
-# # - task: SonarCloudAnalyze@1
-# #   inputs:
-# #     projectKey: 'Test Devsu Project'
-# #     projectName: 'Test Devsu Project'
-# # - task: SonarCloudPublish@1
-# #   inputs:
-# #     pollingTimeoutSec: '300'
-# #   displayName: 'SonarCloud Step 2'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'devopsgman007'
+    scannerMode: 'CLI'
+    projectKey: 'Test Devsu Project'
+    projectName: 'Test Devsu Project'
+  displayName: 'SonarCloud Step 1'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+  displayName: 'SonarCloud Step 2'
 # steps:
 # - script: echo K8s Pipeline
 #     displayName: 
