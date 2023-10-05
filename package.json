@@ -9,7 +9,6 @@
     "test": "jest",
     "coverage": "jest --coverage --coverageReporters=cobertura"
   },
-  },
   "jest": {
     "transform": {
       "^.+\\.js?$": "babel-jest"
