@@ -16,9 +16,12 @@ steps:
 
     # Testing Node.js app
     npm test
-
   displayName: 'Test Node.js App'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
