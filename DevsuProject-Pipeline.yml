@@ -18,8 +18,8 @@ steps:
     npm test
   displayName: 'Test Node.js App'
 
-# - script:
-#     jest test --reporter jest-junit-reporter
+- script:
+    jest --coverage --coverageReporters=cobertura
 
 # - task: PublishTestResults@2
 #   inputs:
@@ -29,10 +29,10 @@ steps:
 #     failTaskOnFailedTests: true
 #   displayName: 'Publish Jest Test Results'
 
-- task: WhiteSource@21
-  inputs:
-    cwd: '$(System.DefaultWorkingDirectory)'
-    displayName: 'MendBolt'
+# - task: WhiteSource@21
+#   inputs:
+#     cwd: '$(System.DefaultWorkingDirectory)'
+#     displayName: 'Vulnerability Scan using MendBolt'
 
 # - task: PublishCodeCoverageResults@1
 #   inputs:
