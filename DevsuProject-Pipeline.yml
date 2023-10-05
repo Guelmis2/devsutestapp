@@ -22,10 +22,12 @@ steps:
 #     jest test --reporter jest-junit-reporter
 
 - task: PublishTestResults@2
-  condition: succeededOrFailed()
   inputs:
-    testRunner: JUnit
-    testResultsFiles: '**/test-results.xml'
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/jest-junit.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    failTaskOnFailedTests: true
+  displayName: 'Publish Jest Test Results'
 
 - task: PublishCodeCoverageResults@1
   inputs:
