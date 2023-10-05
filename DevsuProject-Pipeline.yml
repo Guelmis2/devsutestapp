@@ -22,7 +22,7 @@ steps:
   inputs:
     SonarCloud: 'SonarCloud'
     organization: 'devopsgman007'
-    scannerMode: 'MSBuild'
+    scannerMode: 'CLI'
     projectKey: 'Test Devsu Project'
     projectName: 'Test Devsu Project'
   displayName: 'SonarCloud Step 1'
