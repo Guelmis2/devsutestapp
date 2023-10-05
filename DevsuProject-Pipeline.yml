@@ -45,21 +45,25 @@ steps:
 #     codeCoverageTool: 'Cobertura'
 #     summaryFileLocation: 'coverage/cobertura-coverage.xml'
 
-- task: SonarCloudPrepare@1
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'guelmisdevops'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'guelmisdevops_testdevsuproject'
+#     cliProjectName: 'TestDevsuProject'
+#     cliSources: '.'
+#   displayName: 'SonarCloud Step 1'
+# - task: SonarCloudAnalyze@1
+# - task: SonarCloudPublish@1
+#   inputs:
+#     pollingTimeoutSec: '300'
+#   displayName: 'SonarCloud Step 2'
+- task: Docker@2
   inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'guelmisdevops'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'guelmisdevops_testdevsuproject'
-    cliProjectName: 'TestDevsuProject'
-    cliSources: '.'
-  displayName: 'SonarCloud Step 1'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-  displayName: 'SonarCloud Step 2'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
 # # steps:
 # # - script: echo K8s Pipeline
 # #     displayName: 
