@@ -25,8 +25,8 @@ steps:
     organization: 'devopsgman007'
     scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: 'Test Devsu Project'
-    cliProjectName: 'Test Devsu Project'
+    cliProjectKey: 'guelmisdevops_testdevsuproject'
+    cliProjectName: 'TestDevsuProject'
     cliSources: '.'
   displayName: 'SonarCloud Step 1'
 - task: SonarCloudAnalyze@1
