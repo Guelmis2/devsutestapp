@@ -14,18 +14,20 @@ steps:
     # Install Node.js dependencies
     npm install
 
-    # Building Node.js app
-    npm run build
-
     # Testing Node.js app
     npm test
 
-  displayName: 'Build Node.js App'
+  displayName: 'Test Node.js App'
 
-- task: PublishTestResults@2
+- script: |
+    npm install -g nyc
+    nyc report --reporter=text-lcov > coverage.lcov
+  displayName: 'Generate Code Coverage Report'
+
+- task: PublishCodeCoverageResults@1
   inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**/TEST-*.xml'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.lcov'
 # steps:
 # - script: echo K8s Pipeline
 #     displayName: 
