@@ -8,7 +8,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '${Build.BuildId}'
+  tag: '$(Build.BuildId)'
 
 steps:
 - task: NodeTool@0
@@ -24,14 +24,14 @@ steps:
     npm test
   displayName: 'Test Node.js App'
 
-- script:
-    npm run coverage
-  displayName: 'Running Test Coverage'
+# - script:
+#     npm run coverage
+#   displayName: 'Running Test Coverage'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: Cobertura
+#     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
 
 # - task: PublishTestResults@2
 #   inputs:
