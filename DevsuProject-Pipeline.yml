@@ -24,8 +24,10 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'devopsgman007'
     scannerMode: 'CLI'
-    projectKey: 'Test Devsu Project'
-    projectName: 'Test Devsu Project'
+    configMode: 'manual'
+    cliProjectKey: 'Test Devsu Project'
+    cliProjectName: 'Test Devsu Project'
+    cliSources: '.'
   displayName: 'SonarCloud Step 1'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
