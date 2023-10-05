@@ -27,6 +27,9 @@ steps:
     projectName: 'Test Devsu Project'
   displayName: 'SonarCloud Step 1'
 - task: SonarCloudAnalyze@1
+  inputs:
+    projectKey: 'Test Devsu Project'
+    projectName: 'Test Devsu Project'
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
