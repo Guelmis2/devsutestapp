@@ -19,7 +19,13 @@ steps:
   displayName: 'Test Node.js App'
 
 - script:
-    jest --coverage --coverageReporters=cobertura
+    npm run coverage
+  displayName: 'Running Test Coverage'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
 
 # - task: PublishTestResults@2
 #   inputs:
