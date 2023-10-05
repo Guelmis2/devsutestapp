@@ -26,6 +26,12 @@ steps:
   inputs:
     testRunner: JUnit
     testResultsFiles: '**/test-results.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'coverage/cobertura-coverage.xml'
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
