@@ -18,6 +18,9 @@ steps:
     npm test
   displayName: 'Test Node.js App'
 
+- script:
+    jest test --reporter jest-junit-reporter
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
