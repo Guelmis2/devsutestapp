@@ -8,7 +8,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '${}'
+  tag: '${Build.BuildId}'
 
 steps:
 - task: NodeTool@0
