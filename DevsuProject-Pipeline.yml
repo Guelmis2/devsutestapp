@@ -25,12 +25,12 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'Test Devsu Project'
     projectName: 'Test Devsu Project'
-    displayName: 'SonarCloud Step 1'
+  displayName: 'SonarCloud Step 1'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-    displayName 'SonarCloud Step 2'
+  displayName: 'SonarCloud Step 2'
 # steps:
 # - script: echo K8s Pipeline
 #     displayName: 
