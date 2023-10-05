@@ -18,13 +18,14 @@ steps:
     npm test
   displayName: 'Test Node.js App'
 
-- script:
-    jest test --reporter jest-junit-reporter
+# - script:
+#     jest test --reporter jest-junit-reporter
 
 - task: PublishTestResults@2
+  condition: succeededOrFailed()
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testRunner: JUnit
+    testResultsFiles: '**/test-results.xml'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
