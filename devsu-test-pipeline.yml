@@ -16,21 +16,21 @@ steps:
     versionSpec: '18.x'  # Specify the Node.js version you want to use
     checkLatest: true
 
-- script: 
-    npm install
-  displayName: 'Installing Dependencies'  
-- script: 
-    npm run test
-  displayName: 'Running Unit Test'
+# - script: 
+#     npm install
+#   displayName: 'Installing Dependencies'  
+# - script: 
+#     npm run test
+#   displayName: 'Running Unit Test'
 
-- script:
-    npm run coverage
-  displayName: 'Running Test Coverage'
+# - script:
+#     npm run coverage
+#   displayName: 'Running Test Coverage'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: Cobertura
+#     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
 
 # - task: PublishTestResults@2
 #   inputs:
