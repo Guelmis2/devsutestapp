@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "Devsu_AKS" {
   }
 
   default_node_pool {
-    name            = "devsu_aks_agentpool"
+    name            = "agentpool"
     node_count      = var.node_count
     vm_size         = "standard_b2ms"
   }
