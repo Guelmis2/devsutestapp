@@ -79,7 +79,7 @@ steps:
   name: aks_public_key
   inputs:
     secureFile: 'azure-rsa.pub'
-    retryCount: '5'
+    
 - task: TerraformCLI@1
   inputs:
     command: 'init'
