@@ -78,8 +78,8 @@ steps:
 - task: DownloadSecureFile@1
   name: aks_public_key
   inputs:
-    secureFile: 'azure-rsa.pub'
-    
+    secureFile: 'aks_test_rsa.pub'
+
 - task: TerraformCLI@1
   inputs:
     command: 'init'
