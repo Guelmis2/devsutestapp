@@ -3,7 +3,7 @@ RUN adduser -D guelmis
 RUN mkdir /app && chown guelmis /app
 WORKDIR /app
 COPY . /app
-RUN npm install
+RUN npm ci
 USER guelmis
 EXPOSE 8000
 CMD [ "node", "index.js" ]
