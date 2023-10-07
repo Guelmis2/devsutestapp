@@ -10,7 +10,7 @@ resources:
 variables:
    tag: 'RELEASE-$(Build.BuildId)'
 stages: 
-- stage: Build_And_Test
+- stage: Build And Test
   jobs:
   - job: Build_And_Test 
     steps:
@@ -31,33 +31,37 @@ stages:
         npm run coverage
       displayName: 'Running Test Coverage'
 
-# # - task: PublishCodeCoverageResults@1
-# #   inputs:
-# #     codeCoverageTool: Cobertura
-# #     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
-# #   displayName: 'Publishing Code Coverage Results'  
+- stage: Code Analysis - Code Coverage - Vulnerability Scan 
+  jobs:
+  - job: CodeScan
+    steps:
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+      displayName: 'Publishing Code Coverage Results'  
 
-# # - task: WhiteSource@21
-# #   inputs:
-# #     cwd: '$(System.DefaultWorkingDirectory)'
-# #   displayName: 'Vulnerability Scan using MendBolt'
+    - task: WhiteSource@21
+      inputs:
+        cwd: '$(System.DefaultWorkingDirectory)'
+      displayName: 'Vulnerability Scan using MendBolt'
 
-# # - task: SonarCloudPrepare@1
-# #   inputs:
-# #     SonarCloud: 'SonarCloud'
-# #     organization: 'guelmisdevops'
-# #     scannerMode: 'CLI'
-# #     configMode: 'manual'
-# #     cliProjectKey: 'guelmisdevops_testdevsuproject'
-# #     cliProjectName: 'TestDevsuProject'
-# #     cliSources: '.'
-# #   displayName: 'SonarCloud Preparation Step'
-# # - task: SonarCloudAnalyze@1
-# #   displayName: 'SonarCloud Code Analysis Step'
-# # - task: SonarCloudPublish@1
-# #   inputs:
-# #     pollingTimeoutSec: '300'
-# #   displayName: 'SonarCloud Publish Step'
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: 'guelmisdevops'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'guelmisdevops_testdevsuproject'
+        cliProjectName: 'TestDevsuProject'
+        cliSources: '.'
+      displayName: 'SonarCloud Preparation Step'
+    - task: SonarCloudAnalyze@1
+      displayName: 'SonarCloud Code Analysis Step'
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+      displayName: 'SonarCloud Publish Step'
 
   
 # - task: Docker@2
