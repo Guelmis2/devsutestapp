@@ -80,20 +80,20 @@ steps:
   inputs:
     secureFile: 'aks_test_rsa.pub'
 
-- task: TerraformCLI@1
-  inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
-    backendType: 'azurerm'
-    backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
-    backendAzureRmResourceGroupLocation: 'eastus2'
-    backendAzureRmStorageAccountName: 'gman007tfk8s'
-    backendAzureRmContainerName: 'gman007tfk8scontainer'
-    backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
-    allowTelemetryCollection: true
-  displayName: 'Terraform Init'
+# - task: TerraformCLI@1
+#   inputs:
+#     command: 'init'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
+#     backendType: 'azurerm'
+#     backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
+#     ensureBackend: true
+#     backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
+#     backendAzureRmResourceGroupLocation: 'eastus2'
+#     backendAzureRmStorageAccountName: 'gman007tfk8s'
+#     backendAzureRmContainerName: 'gman007tfk8scontainer'
+#     backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
+#     allowTelemetryCollection: true
+#   displayName: 'Terraform Init'
 # - task: TerraformCLI@1
 #   inputs:
 #     command: 'apply'
@@ -125,6 +125,6 @@ steps:
     azureResourceGroup: 'Devsu_Test_AKS_RG'
     kubernetesCluster: 'Devsu_Test_AKS'
     namespace: 'default'
-    manifests: '$(System.ArtifactsDirectory)/Kubernetes/Deployment.yml'
+    manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
     containers: 'guelmisedwards/devsutest:188'
   displayName: 'Deploying Deployment.yml to AKS Cluster'  
