@@ -126,5 +126,5 @@ steps:
     kubernetesCluster: 'Devsu_Test_AKS'
     namespace: 'default'
     manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
-    containers: 'guelmisedwards/devsutest:188'
+    containers: 'guelmisedwards/devsutest:203'
   displayName: 'Deploying Deployment.yml to AKS Cluster'
