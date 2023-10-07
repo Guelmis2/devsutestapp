@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsu-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devsutest
+  template:
+    metadata:
+      labels:
+        app: devsutest
+    spec:
+      containers:
+        - name: devsutest
+          image: guelmisedwards/devsutest:203
+          env:
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: devsutest-cm
+                  key: database_name
+            - name: DATABASE_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: devsutest-cm
+                  key: database_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: devsutest-secret
+                  key: database_password
+          resources:
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devsu-test-service
+spec:
+  selector:
+    app: devsutest
+  ports:
+    - nodePort: 30020
+      port: 8000
+      targetPort: 8000
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /api/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: aks-helloworld-one
+            port:
+              number: 80	
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devsutest-cm
+data:
+
+  database_name: ./devsutest.sqlite-guelmis
+  database_user: guelmisedwards
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: devsutest-secret
+type: Opaque
+data:
+
+  database_password: Z3VlbG1pc2Rldm9wc2VuZ2luZWVy
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: devsutest-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: devsu-test
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70  
+
+
+
+		
+			
+node-role.kubernetes.io/control-plane-			
+node.kubernetes.io/not-ready-			
