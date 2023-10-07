@@ -114,7 +114,4 @@ spec:
 
 
 
-		
-			
-node-role.kubernetes.io/control-plane-			
-node.kubernetes.io/not-ready-			
+				
