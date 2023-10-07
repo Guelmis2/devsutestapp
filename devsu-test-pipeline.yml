@@ -26,12 +26,7 @@ stages:
     - script: 
         npm run test
       displayName: 'Running Unit Test'
-
-- stage: CodeAnalysis_CodeCoverage_VulnerabilityScan 
-  jobs:
-  - job: CodeScan
-    steps:
-  
+    
     - script:
         npm run coverage
       displayName: 'Running Test Coverage'
@@ -41,7 +36,11 @@ stages:
         codeCoverageTool: Cobertura
         summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
       displayName: 'Publishing Code Coverage Results'  
-
+      
+# - stage: CodeAnalysis_CodeCoverage_VulnerabilityScan 
+#   jobs:
+#   - job: CodeScan
+#     steps:
     # - task: WhiteSource@21
     #   inputs:
     #     cwd: '$(System.DefaultWorkingDirectory)'
