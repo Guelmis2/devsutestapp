@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devsu-test
+  name: devsutest-deployment
 spec:
   replicas: 3
   selector:
@@ -38,7 +38,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: devsu-test-service
+  name: devsutest-service
 spec:
   selector:
     app: devsutest
@@ -51,21 +51,20 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-world-ingress
+  name: devsutest-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /api/(.*)
+      - path: /api/users
         pathType: Prefix
         backend:
           service:
-            name: aks-helloworld-one
+            name: devsutest-service
             port:
               number: 80	
 ---
@@ -95,7 +94,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: devsu-test
+    name: devsutest-deployment
   minReplicas: 2
   maxReplicas: 5
   metrics:
