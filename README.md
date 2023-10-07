@@ -137,6 +137,11 @@ If the response is unsuccessful, we will receive status 400 and the following me
 }
 ```
 
+Diagram of the Project:
+
+![Project Diagram](https://drive.google.com/file/d/1qIJEbyp71nyuwVHsQgtmZQ8l4S4IzQiF/view?usp=sharing)
+
+
 ## License
 
 Copyright © 2023 Devsu. All rights reserved.
