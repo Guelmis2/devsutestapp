@@ -101,6 +101,26 @@ steps:
     environmentServiceName: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(aks_public_key.secureFilePath)'
   displayName: 'Terraform Apply'
-# # steps:
-# # - script: echo K8s Pipeline
-# #     displayName: 
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'manifests'
+#     publishLocation: 'Container'
+#   displayName: 'Publishing K8s Manifest File'
+
+# - task: DownloadPipelineArtifact@2
+#   inputs:
+#     buildType: 'current'
+#     artifactName: 'manifests'
+#     itemPattern: '**/*.yml'
+#     targetPath: '$(System.ArtifactsDirectory)'
+#   displayName: 'Downloading the K8s Manifests File'
+
+# - task: KubernetesManifest@1
+#   inputs:
+#     action: 'deploy'
+#     connectionType: 'kubernetesServiceConnection'
+#     namespace: 'default'
+#     manifests: '$(System.ArtifactsDirectory)/Kubernetes/deployment.yml'
+#     containers: 'guelmisedwards/devsutest:188'
