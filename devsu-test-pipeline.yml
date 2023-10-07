@@ -10,7 +10,7 @@ resources:
 variables:
    tag: 'RELEASE-$(Build.BuildId)'
 stages: 
-- stage: Build And Test
+- stage: BuildAndTest
   jobs:
   - job: Build_And_Test 
     steps:
@@ -31,7 +31,7 @@ stages:
         npm run coverage
       displayName: 'Running Test Coverage'
 
-- stage: Code Analysis - Code Coverage - Vulnerability Scan 
+- stage: CodeAnalysis_CodeCoverage_VulnerabilityScan 
   jobs:
   - job: CodeScan
     steps:
