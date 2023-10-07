@@ -31,41 +31,29 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+  displayName: 'Publishing Code Coverage Results'  
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/jest-junit.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    failTaskOnFailedTests: true
-  displayName: 'Publish Jest Test Results'
+# - task: WhiteSource@21
+#   inputs:
+#     cwd: '$(System.DefaultWorkingDirectory)'
+#   displayName: 'Vulnerability Scan using MendBolt'
 
-- task: WhiteSource@21
-  inputs:
-    cwd: '$(System.DefaultWorkingDirectory)'
-  displayName: 'Vulnerability Scan using MendBolt'
-
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'coverage/cobertura-coverage.xml'
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'guelmisdevops'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'guelmisdevops_testdevsuproject'
-    cliProjectName: 'TestDevsuProject'
-    cliSources: '.'
-  displayName: 'SonarCloud Preparation Step'
-- task: SonarCloudAnalyze@1
-  displayName: 'SonarCloud Code Analysis Step'
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-  displayName: 'SonarCloud Publish Step'
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'guelmisdevops'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'guelmisdevops_testdevsuproject'
+#     cliProjectName: 'TestDevsuProject'
+#     cliSources: '.'
+#   displayName: 'SonarCloud Preparation Step'
+# - task: SonarCloudAnalyze@1
+#   displayName: 'SonarCloud Code Analysis Step'
+# - task: SonarCloudPublish@1
+#   inputs:
+#     pollingTimeoutSec: '300'
+#   displayName: 'SonarCloud Publish Step'
 
   
 - task: Docker@2
@@ -81,27 +69,27 @@ steps:
   inputs:
     secureFile: 'aks_test_rsa.pub'
 
-- task: TerraformCLI@1
-  inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
-    backendType: 'azurerm'
-    backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
-    backendAzureRmResourceGroupLocation: 'eastus2'
-    backendAzureRmStorageAccountName: 'gman007tfk8s'
-    backendAzureRmContainerName: 'gman007tfk8scontainer'
-    backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
-    allowTelemetryCollection: true
-  displayName: 'Terraform Init'
-- task: TerraformCLI@1
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
-    environmentServiceName: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(aks_public_key.secureFilePath)'
-  displayName: 'Terraform Apply'
+# - task: TerraformCLI@1
+#   inputs:
+#     command: 'init'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
+#     backendType: 'azurerm'
+#     backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
+#     ensureBackend: true
+#     backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
+#     backendAzureRmResourceGroupLocation: 'eastus2'
+#     backendAzureRmStorageAccountName: 'gman007tfk8s'
+#     backendAzureRmContainerName: 'gman007tfk8scontainer'
+#     backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
+#     allowTelemetryCollection: true
+#   displayName: 'Terraform Init'
+# - task: TerraformCLI@1
+#   inputs:
+#     command: 'apply'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
+#     environmentServiceName: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
+#     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(aks_public_key.secureFilePath)'
+#   displayName: 'Terraform Apply'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -127,11 +115,7 @@ steps:
     kubernetesCluster: 'Devsu_Test_AKS'
     namespace: 'default'
     manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
-<<<<<<< HEAD
-    containers: 'guelmisedwards/devsutest:233'
-=======
     containers: 'guelmisedwards/devsutest:$(tag)'
->>>>>>> cbee026e35b61d246471a2e5fd6419ccbee79e38
   displayName: 'Deploying Deployment.yml to AKS Cluster'
 
 - task: Kubernetes@1
