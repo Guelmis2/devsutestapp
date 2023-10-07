@@ -137,7 +137,7 @@ If the response is unsuccessful, we will receive status 400 and the following me
 }
 ```
 
-### Diagram of the Project
+### DevOps Project Diagram
 
 The following is the diagram of the devsutestapp project:
 

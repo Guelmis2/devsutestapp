@@ -12,10 +12,6 @@ spec:
       labels:
         app: devsutest
     spec:
-      volumes:
-        - name: devsutest-vol
-          hostPath:
-            path: /devsutest-app
       containers:
         - name: devsutest
           image: guelmisedwards/devsutest:203
@@ -35,37 +31,9 @@ spec:
                 secretKeyRef:
                   name: devsutest-secret
                   key: database_password
-          volumeMounts:
-            - name: devsutest-vol
-              mountPath: /app/devsutest.sqlite-guelmis
-              subPath: devsutest.sqlite-guelmis
           resources:
           ports:
             - containerPort: 8000
-#---
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  name: devsutest-pv
-#spec:
-#  accessModes:
-#    - ReadWriteMany
-#  capacity:
-#    storage: 1Gi
-#  persistentVolumeReclaimPolicy: Retain
-#  hostPath:
-#    path: /devsutest-app  
-#---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: devsutest-pvc
-#spec:
-#  accessModes:
-#    - ReadWriteMany
-#  resources:
-#    requests:
-#      storage: 100Mi  
 ---
 apiVersion: v1
 kind: Service
