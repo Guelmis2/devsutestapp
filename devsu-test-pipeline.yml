@@ -104,7 +104,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/Kubernetes'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
     ArtifactName: 'manifests'
     publishLocation: 'Container'
   displayName: 'Publishing K8s Manifest File'
@@ -125,6 +125,6 @@ steps:
     azureResourceGroup: 'Devsu_Test_AKS_RG'
     kubernetesCluster: 'Devsu_Test_AKS'
     namespace: 'default'
-    manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
+    manifests: '$(System.ArtifactsDirectory)/Kubernetes/Deployment.yml'
     containers: 'guelmisedwards/devsutest:188'
   displayName: 'Deploying Deployment.yml to AKS Cluster'  
