@@ -128,3 +128,11 @@ steps:
     manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
     containers: 'guelmisedwards/devsutest:203'
   displayName: 'Deploying Deployment.yml to AKS Cluster'
+
+- task: Kubernetes@1
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'Devsu-AKS-Test-Connection'
+    namespace: 'default'
+    command: 'apply'
+    arguments: '-f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml'
