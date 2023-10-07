@@ -114,7 +114,7 @@ steps:
     buildType: 'current'
     artifactName: 'manifests'
     itemPattern: '**/*.yml'
-    targetPath: '$(System.ArtifactsDirectory)/Kubernetes'
+    targetPath: '$(System.ArtifactsDirectory)'
   displayName: 'Downloading the K8s Manifests File'
 
 - task: KubernetesManifest@1
@@ -123,5 +123,5 @@ steps:
     connectionType: 'kubernetesServiceConnection'
     kubernetesServiceConnection: 'Devsu-AKS-Test-Connection'
     namespace: 'default'
-    manifests: '$(System.ArtifactsDirectory)/Kubernetes/deployment.yml'
+    manifests: '$(System.ArtifactsDirectory)/Kubernetes/Deployment.yml'
     containers: 'guelmisedwards/devsutest:188'
