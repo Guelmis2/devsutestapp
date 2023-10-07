@@ -44,7 +44,7 @@ spec:
     app: devsutest
   ports:
     - nodePort: 30020
-      port: 8000
+      port: 80
       targetPort: 8000
   type: NodePort
 ---
@@ -55,6 +55,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/affinity: "cookie" 
 spec:
   ingressClassName: nginx
   rules:
