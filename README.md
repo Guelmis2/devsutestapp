@@ -137,9 +137,11 @@ If the response is unsuccessful, we will receive status 400 and the following me
 }
 ```
 
-Diagram of the Project:
+### Diagram of the Project
 
-![Project Diagram](https://drive.google.com/file/d/1qIJEbyp71nyuwVHsQgtmZQ8l4S4IzQiF/view?usp=sharing)
+The following is the diagram of the devsutestapp project:
+
+![Project Diagram](https://github.com/Guelmis2/devsutestapp/blob/main/Devsutestapp%20Project%20Diagram.png)
 
 
 ## License
