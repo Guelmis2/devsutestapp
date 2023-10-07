@@ -133,6 +133,9 @@ steps:
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'Devsu-AKS-Test-Connection'
-    namespace: 'default'
     command: 'apply'
     arguments: '-f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Container Registry'
+    outputFormat: 'none'
+  displayName: 'Deploying Nginx Ingress Controller'
