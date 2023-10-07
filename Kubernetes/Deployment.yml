@@ -37,7 +37,8 @@ spec:
                   key: database_password
           volumeMounts:
             - name: devsutest-vol
-              mountPath: ./
+              mountPath: /app./devsutest.sqlite-guelmis
+              subPath: ./devsutest.sqlite-guelmis
           resources:
           ports:
             - containerPort: 8000
