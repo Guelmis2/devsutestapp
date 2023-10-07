@@ -27,41 +27,42 @@ stages:
         npm run test
       displayName: 'Running Unit Test'
 
-    - script:
-        npm run coverage
-      displayName: 'Running Test Coverage'
-
 - stage: CodeAnalysis_CodeCoverage_VulnerabilityScan 
   jobs:
   - job: CodeScan
     steps:
+  
+    - script:
+        npm run coverage
+      displayName: 'Running Test Coverage'
+
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: Cobertura
         summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
       displayName: 'Publishing Code Coverage Results'  
 
-    - task: WhiteSource@21
-      inputs:
-        cwd: '$(System.DefaultWorkingDirectory)'
-      displayName: 'Vulnerability Scan using MendBolt'
+    # - task: WhiteSource@21
+    #   inputs:
+    #     cwd: '$(System.DefaultWorkingDirectory)'
+    #   displayName: 'Vulnerability Scan using MendBolt'
 
-    - task: SonarCloudPrepare@1
-      inputs:
-        SonarCloud: 'SonarCloud'
-        organization: 'guelmisdevops'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: 'guelmisdevops_testdevsuproject'
-        cliProjectName: 'TestDevsuProject'
-        cliSources: '.'
-      displayName: 'SonarCloud Preparation Step'
-    - task: SonarCloudAnalyze@1
-      displayName: 'SonarCloud Code Analysis Step'
-    - task: SonarCloudPublish@1
-      inputs:
-        pollingTimeoutSec: '300'
-      displayName: 'SonarCloud Publish Step'
+    # - task: SonarCloudPrepare@1
+    #   inputs:
+    #     SonarCloud: 'SonarCloud'
+    #     organization: 'guelmisdevops'
+    #     scannerMode: 'CLI'
+    #     configMode: 'manual'
+    #     cliProjectKey: 'guelmisdevops_testdevsuproject'
+    #     cliProjectName: 'TestDevsuProject'
+    #     cliSources: '.'
+    #   displayName: 'SonarCloud Preparation Step'
+    # - task: SonarCloudAnalyze@1
+    #   displayName: 'SonarCloud Code Analysis Step'
+    # - task: SonarCloudPublish@1
+    #   inputs:
+    #     pollingTimeoutSec: '300'
+    #   displayName: 'SonarCloud Publish Step'
 
   
 # - task: Docker@2
