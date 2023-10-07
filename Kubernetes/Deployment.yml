@@ -37,7 +37,7 @@ spec:
                   key: database_password
           volumeMounts:
             - name: devsutest-vol
-              mountPath: /app
+              mountPath: ./
           resources:
           ports:
             - containerPort: 8000
