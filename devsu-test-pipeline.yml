@@ -114,7 +114,7 @@ steps:
     buildType: 'current'
     artifactName: 'manifests'
     itemPattern: '**/*.yml'
-    targetPath: '$(System.ArtifactsDirectory)'
+    targetPath: '$(System.ArtifactsDirectory)/Kubernetes'
   displayName: 'Downloading the K8s Manifests File'
 
 - task: KubernetesManifest@1
