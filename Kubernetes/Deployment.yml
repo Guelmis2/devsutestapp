@@ -56,7 +56,8 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/affinity: "cookie" 
-    nginx.ingress.kubernetes.io/session-cookie-path: "/"
+    nginx.ingress.kubernetes.io/affinity-backend-cookie: "devops"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "3600"
 spec:
   ingressClassName: nginx
   rules:
