@@ -133,7 +133,7 @@ stages:
         azureSubscriptionConnection: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
         azureResourceGroup: 'Devsu_Test_AKS_RG'
         kubernetesCluster: 'Devsu_Test_AKS'
-        namespace: 'default'
+        namespace: 'devsutestapp'
         manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
         containers: 'guelmisedwards/devsutest:RELEASE-301'
       displayName: 'Deploying Deployment.yml to AKS Cluster'
