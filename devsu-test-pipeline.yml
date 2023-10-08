@@ -10,102 +10,102 @@ resources:
 variables:
    tag: 'RELEASE-$(Build.BuildId)'
 stages: 
-- stage: BuildAndTest
-  jobs:
-  - job: Build_And_Test 
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '18.x'  # Specify the Node.js version you want to use
-        checkLatest: true
-      displayName: 'Installing NodeJS'  
+# - stage: BuildAndTest
+#   jobs:
+#   - job: Build_And_Test 
+#     steps:
+#     - task: NodeTool@0
+#       inputs:
+#         versionSpec: '18.x'  # Specify the Node.js version you want to use
+#         checkLatest: true
+#       displayName: 'Installing NodeJS'  
 
-    - script: 
-        npm install
-      displayName: 'Installing Dependencies'  
-    - script: 
-        npm run test
-      displayName: 'Running Unit Test'
+#     - script: 
+#         npm install
+#       displayName: 'Installing Dependencies'  
+#     - script: 
+#         npm run test
+#       displayName: 'Running Unit Test'
     
-    - script:
-        npm run coverage
-      displayName: 'Running Test Coverage'
+#     - script:
+#         npm run coverage
+#       displayName: 'Running Test Coverage'
 
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
-      displayName: 'Publishing Code Coverage Results'  
+#     - task: PublishCodeCoverageResults@1
+#       inputs:
+#         codeCoverageTool: Cobertura
+#         summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+#       displayName: 'Publishing Code Coverage Results'  
 
-- stage: CodeAnalysis_VulnerabilityScan 
-  jobs:
-  - job: CodeScan
-    steps:
-    - task: WhiteSource@21
-      inputs:
-        cwd: '$(System.DefaultWorkingDirectory)'
-      displayName: 'Vulnerability Scan using MendBolt'
+# - stage: CodeAnalysis_VulnerabilityScan 
+#   jobs:
+#   - job: CodeScan
+#     steps:
+#     - task: WhiteSource@21
+#       inputs:
+#         cwd: '$(System.DefaultWorkingDirectory)'
+#       displayName: 'Vulnerability Scan using MendBolt'
 
-    - task: SonarCloudPrepare@1
-      inputs:
-        SonarCloud: 'SonarCloud'
-        organization: 'guelmisdevops'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: 'guelmisdevops_testdevsuproject'
-        cliProjectName: 'TestDevsuProject'
-        cliSources: '.'
-      displayName: 'SonarCloud Preparation Step'
-    - task: SonarCloudAnalyze@1
-      displayName: 'SonarCloud Code Analysis Step'
-    - task: SonarCloudPublish@1
-      inputs:
-        pollingTimeoutSec: '300'
-      displayName: 'SonarCloud Publish Step'
+#     - task: SonarCloudPrepare@1
+#       inputs:
+#         SonarCloud: 'SonarCloud'
+#         organization: 'guelmisdevops'
+#         scannerMode: 'CLI'
+#         configMode: 'manual'
+#         cliProjectKey: 'guelmisdevops_testdevsuproject'
+#         cliProjectName: 'TestDevsuProject'
+#         cliSources: '.'
+#       displayName: 'SonarCloud Preparation Step'
+#     - task: SonarCloudAnalyze@1
+#       displayName: 'SonarCloud Code Analysis Step'
+#     - task: SonarCloudPublish@1
+#       inputs:
+#         pollingTimeoutSec: '300'
+#       displayName: 'SonarCloud Publish Step'
 
-- stage: Building_And_Pushing_Image 
-  jobs:
-  - job: DockerImage
-    steps:  
-    - task: Docker@2
-      displayName: Build an image and Pushing to DockerHub
-      inputs:
-        containerRegistry: 'GuelmisDockerHub'
-        repository: 'guelmisedwards/devsutest'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'  
+# - stage: Building_And_Pushing_Image 
+#   jobs:
+#   - job: DockerImage
+#     steps:  
+#     - task: Docker@2
+#       displayName: Build an image and Pushing to DockerHub
+#       inputs:
+#         containerRegistry: 'GuelmisDockerHub'
+#         repository: 'guelmisedwards/devsutest'
+#         command: 'buildAndPush'
+#         Dockerfile: '**/Dockerfile'
+#         tags: '$(tag)'  
 
-- stage: Creating_K8s_Cluster 
-  jobs:
-  - job: K8sCluster
-    steps: 
-    - task: DownloadSecureFile@1
-      name: aks_public_key
-      inputs:
-       secureFile: 'aks_test_rsa.pub'
-      displayName: 'Downloading Key'
-    - task: TerraformCLI@1
-      inputs:
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
-        backendType: 'azurerm'
-        backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
-        ensureBackend: true
-        backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
-        backendAzureRmResourceGroupLocation: 'eastus2'
-        backendAzureRmStorageAccountName: 'gman007tfk8s'
-        backendAzureRmContainerName: 'gman007tfk8scontainer'
-        backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
-        allowTelemetryCollection: true
-      displayName: 'Terraform Init'
-    - task: TerraformCLI@1
-      inputs:
-        command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
-        environmentServiceName: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
-        commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(aks_public_key.secureFilePath)'
-      displayName: 'Terraform Apply'
+# - stage: Creating_K8s_Cluster 
+#   jobs:
+#   - job: K8sCluster
+#     steps: 
+#     - task: DownloadSecureFile@1
+#       name: aks_public_key
+#       inputs:
+#        secureFile: 'aks_test_rsa.pub'
+#       displayName: 'Downloading Key'
+#     - task: TerraformCLI@1
+#       inputs:
+#         command: 'init'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
+#         backendType: 'azurerm'
+#         backendServiceArm: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
+#         ensureBackend: true
+#         backendAzureRmResourceGroupName: 'Terraform-Backend-RG'
+#         backendAzureRmResourceGroupLocation: 'eastus2'
+#         backendAzureRmStorageAccountName: 'gman007tfk8s'
+#         backendAzureRmContainerName: 'gman007tfk8scontainer'
+#         backendAzureRmKey: 'Devsu-AKS-Test.tfstate'
+#         allowTelemetryCollection: true
+#       displayName: 'Terraform Init'
+#     - task: TerraformCLI@1
+#       inputs:
+#         command: 'apply'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform_IAC'
+#         environmentServiceName: 'Azure for Students(46a4b51c-2644-47a5-a2ff-547062148e88)'
+#         commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(aks_public_key.secureFilePath)'
+#       displayName: 'Terraform Apply'
 
 - stage: DeployingProject 
   jobs:
@@ -135,7 +135,7 @@ stages:
         kubernetesCluster: 'Devsu_Test_AKS'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
-        containers: 'guelmisedwards/devsutest:$(tag)'
+        containers: 'guelmisedwards/devsutest:RELEASE-301'
       displayName: 'Deploying Deployment.yml to AKS Cluster'
 
     - task: Kubernetes@1
