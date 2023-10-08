@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devsutest-deployment
+  namespace: devsutestapp
 spec:
   replicas: 3
   selector:
@@ -39,6 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: devsutest-service
+  namespace: devsutestapp
 spec:
   selector:
     app: devsutest
@@ -52,6 +54,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: devsutest-ingress
+  namespace: devsutestapp
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -75,6 +78,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: devsutest-cm
+  namespace: devsutestapp
 data:
 
   database_name: ./devsutest.sqlite-guelmis
@@ -84,6 +88,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: devsutest-secret
+  namespace: devsutestapp
 type: Opaque
 data:
 
@@ -93,6 +98,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: devsutest-hpa
+  namespace: devsutestapp
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
