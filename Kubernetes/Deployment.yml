@@ -111,6 +111,17 @@ spec:
     name: devsutest-deployment
   minReplicas: 2
   maxReplicas: 5
+  behavior:
+    scaleUp:
+      policies:
+      -  type: Pods
+         value: 1
+         periodSeconds: 45
+    scaleDown:  
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 45        
   metrics:
   - type: Resource
     resource:
