@@ -38,6 +38,9 @@ spec:
                   name: devsutest-secret
                   key: database_password
           resources:
+            requests:
+              cpu: "0.5"  
+              memory: "128Mi"
           ports:
             - containerPort: 8000
 ---
