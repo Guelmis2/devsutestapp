@@ -135,7 +135,7 @@ stages:
         kubernetesCluster: 'Devsu_Test_AKS'
         namespace: 'devsutestapp'
         manifests: '$(System.ArtifactsDirectory)/Deployment.yml'
-        containers: 'guelmisedwards/devsutest:RELEASE-305'
+        containers: 'guelmisedwards/devsutest:$(tag)'
       displayName: 'Deploying Deployment.yml to AKS Cluster'
 
     - task: Kubernetes@1
