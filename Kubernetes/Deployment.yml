@@ -39,8 +39,11 @@ spec:
                   key: database_password
           resources:
             requests:
-              cpu: "0.5"  
-              memory: "128Mi"
+              cpu: "50m"  
+              memory: "96Mi"
+            limits:
+              cpu: "100m"  
+              memory: "192Mi"  
           ports:
             - containerPort: 8000
 ---
@@ -113,18 +116,19 @@ spec:
     kind: Deployment
     name: devsutest-deployment
   minReplicas: 2
-  maxReplicas: 5
+  maxReplicas: 7
   behavior:
     scaleUp:
+      stabilizationWindowSeconds: 30
       policies:
       -  type: Pods
          value: 1
-         periodSeconds: 45
+         periodSeconds: 60
     scaleDown:  
       policies:
       - type: Percent
-        value: 50
-        periodSeconds: 45        
+        value: 25
+        periodSeconds: 60        
   metrics:
   - type: Resource
     resource:
