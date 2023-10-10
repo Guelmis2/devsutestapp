@@ -143,15 +143,15 @@ The following is the diagram of the devsutestapp project:
 
 ![Project Diagram](https://github.com/Guelmis2/devsutestapp/blob/main/Devsutestapp%20Project%20Diagram.png)
 
-The number one represents when a developer pushes a code change to the project's GitHub repository.
+1. The number one represents when a developer pushes a code change to the project's GitHub repository.
 
-The number two represents the CI/CD process that runs within the Azure DevOps Pipeline.
+2. The number two represents the CI/CD process that runs within the Azure DevOps Pipeline.
 
-The number three represents the stage within the pipeline that follows the Building and Testing stage and the Code Analysis and Vulnerability Scan. In this stage, the pipeline builds an image using the Dockerfile located in the project's repository and pushes it to the DockerHub Container Registry.
+3. The number three represents the stage within the pipeline that follows the Building and Testing stage and the Code Analysis and Vulnerability Scan. In this stage, the pipeline builds an image using the Dockerfile located in the project's repository and pushes it to the DockerHub Container Registry.
 
-The number four represents the stage within the pipeline where the Kubernetes cluster is created on Azure Kubernetes Service (AKS).
+4. The number four represents the stage within the pipeline where the Kubernetes cluster is created on Azure Kubernetes Service (AKS).
 
-The number five represents the final stage within the pipeline where the Kubernetes cluster is updated using the manifest file located in the project's repository and the new Docker image previously pushed to DockerHub.
+5. The number five represents the final stage within the pipeline where the Kubernetes cluster is updated using the manifest file located in the project's repository and the new Docker image previously pushed to DockerHub.
 
 
 
