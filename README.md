@@ -153,7 +153,26 @@ The following is the diagram of the devsutestapp project:
 
 5. The number five represents the final stage within the pipeline where the Kubernetes cluster is updated using the manifest file located in the project's repository and the new Docker image previously pushed to DockerHub.
 
+### Pipeline Stages
 
+The pipeline consists of five stages, each with specific tasks and objectives.
+
+Stage 1: Building and Testing the App
+In this stage, NodeJS is installed, and app dependencies are resolved. The program is built, unit tests are executed, and code coverage using Cobertura is performed. The results are published.
+
+Stage 2: Static Code Analysis and Vulnerability Scan
+This stage involves using MendBolt (formerly WhiteSource) for vulnerability scanning and SonarCloud for code analysis. Static code analysis and vulnerability scanning tasks are carried out.
+
+Stage 3: Building and Pushing Docker Image
+This stage focuses on building a Docker image using the Dockerfile located in the repository. The built image is pushed to a public DockerHub Container Registry.
+
+Stage 4: Creating Azure Kubernetes Service (AKS)
+Infrastructure as Code (IAC) is used with Terraform to create an Azure Kubernetes Service. The stage includes initializing Terraform (terraform init) and applying the Terraform configuration (terraform apply) to create the AKS resource.
+
+Stage 5: Deployment of Kubernetes Manifest
+In this final stage, the pipeline downloads the Kubernetes manifest from the GitHub repository. It saves the manifest as an artifact and deploys it to the AKS cluster created in the previous step. Additionally, the Nginx Ingress Controller is downloaded and deployed to enable public access to the app via a public IP on port 80.
+
+Overall, the pipeline automates the building, testing, analysis, containerization, AKS provisioning, and Kubernetes deployment processes for the project.  
 
 ## License
 
