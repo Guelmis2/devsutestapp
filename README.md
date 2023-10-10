@@ -154,6 +154,7 @@ The following is the diagram of the devsutestapp project:
 5. The number five represents the final stage within the pipeline where the Kubernetes cluster is updated using the manifest file located in the project's repository and the new Docker image previously pushed to DockerHub.
 
 
+
 ### Pipeline Stages
 
 The pipeline consists of five stages, each with specific tasks and objectives.
